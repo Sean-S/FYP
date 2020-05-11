@@ -18,13 +18,11 @@
 				</infoToolbar>
 				<headerToolbar>
 					<OverflowToolbar>
-						<!--<SearchField id="searchField" showRefreshButton="true" tooltip="{i18n>masterSearchTooltip}" search=".handleSelectDialogPress" width="auto">-->
-						<!--	<layoutData>-->
-						<!--		<OverflowToolbarLayoutData minWidth="150px" maxWidth="240px" shrinkable="true" priority="NeverOverflow"/>-->
-						<!--	</layoutData>-->
-						<!--</SearchField>-->
 						<Select id="searchPlant" forceSelection="true" change=".handleSearchHelpPlant" items="{ path: '/searchHelpPlantSet' }">
-							<core:Item key="{Werks}" text="{Werks} {Name1}"/>
+							<core:Item key="{Werks}" text="{Werks} - {Name1}"/>
+						</Select>
+						<Select id="searchLotOrigin" forceSelection="true" change=".handleSearchHelpLotOrigin" items="{ path: '/searchHelpLotOriginSet' }">
+							<core:Item key="{Herkunft}" text="{Herkunft} - {Herktxt}"/>
 						</Select>
 						<ToolbarSpacer/>
 						<Button id="sortButton" press=".onOpenViewSettings" icon="sap-icon://sort" type="Transparent"/>
