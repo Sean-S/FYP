@@ -15,15 +15,15 @@ sap.ui.define([
 
 		formatter: formatter,
 
-		/* =========================================================== */
-		/* lifecycle methods                                           */
-		/* =========================================================== */
+		/ =========================================================== /
+		/ lifecycle methods                                           /
+		/ =========================================================== /
 
 		/**
 		 * Called when the master list controller is instantiated. It sets up the event handling for the master/detail communication and other lifecycle tasks.
 		 * @public
 		 */
-		onInit : function () {
+		onInit: function () {
 			// Control state model
 			var oList = this.byId("list"),
 				oViewModel = this._createViewModel(),
@@ -33,7 +33,7 @@ sap.ui.define([
 				iOriginalBusyDelay = oList.getBusyIndicatorDelay();
 
 			this._oGroupFunctions = {
-				WeightTotal : function(oContext) {
+				WeightTotal: function (oContext) {
 					var iNumber = oContext.getProperty('WeightTotal'),
 						key, text;
 					if (iNumber <= 20) {
@@ -53,15 +53,15 @@ sap.ui.define([
 			this._oList = oList;
 			// keeps the filter and search state
 			this._oListFilterState = {
-				aFilter : [],
-				aSearch : []
+				aFilter: [],
+				aSearch: []
 			};
 
 			this.setModel(oViewModel, "masterView");
 			// Make sure, busy indication is showing immediately so there is no
 			// break after the busy indication for loading the view's meta data is
 			// ended (see promise 'oWhenMetadataIsLoaded' in AppController)
-			oList.attachEventOnce("updateFinished", function(){
+			oList.attachEventOnce("updateFinished", function () {
 				// Restore original busy indicator delay for the list
 				oViewModel.setProperty("/delay", iOriginalBusyDelay);
 			});
@@ -74,11 +74,15 @@ sap.ui.define([
 
 			this.getRouter().getRoute("master").attachPatternMatched(this._onMasterMatched, this);
 			this.getRouter().attachBypassed(this.onBypassed, this);
+			
+			this._setPlantFilter("0001");
+			this._setLotOriginFilter("01");
+			//this._applyFilterSearch();
 		},
 
-		/* =========================================================== */
-		/* event handlers                                              */
-		/* =========================================================== */
+		/ =========================================================== /
+		/ event handlers                                              /
+		/ =========================================================== /
 
 		/**
 		 * After list data is available, this handler method updates the
@@ -86,7 +90,7 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the update finished event
 		 * @public
 		 */
-		onUpdateFinished : function (oEvent) {
+		onUpdateFinished: function (oEvent) {
 			// update the master list object counter after new data is loaded
 			this._updateListItemCount(oEvent.getParameter("total"));
 		},
@@ -99,7 +103,7 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the search event
 		 * @public
 		 */
-		onSearch : function (oEvent) {
+		onSearch: function (oEvent) {
 			if (oEvent.getParameters().refreshButtonPressed) {
 				// Search field's 'refresh' button has been pressed.
 				// This is visible if you select any master list item.
@@ -108,26 +112,21 @@ sap.ui.define([
 				this.onRefresh();
 				return;
 			}
-
 			var sQuery = oEvent.getParameter("query");
 
 			if (sQuery) {
-				this._oListFilterState.aSearch = [new Filter("Werk", FilterOperator.Contains, sQuery)];
+				this._oListFilterState.aSearch = [new Filter("Werk", FilterOperator.EQ, sQuery)];
 			} else {
 				this._oListFilterState.aSearch = [];
 			}
 			this._applyFilterSearch();
-
 		},
-		
-		
-
 		/**
 		 * Event handler for refresh event. Keeps filter, sort
 		 * and group settings and refreshes the list binding.
 		 * @public
 		 */
-		onRefresh : function () {
+		onRefresh: function () {
 			this._oList.getBinding("items").refresh();
 		},
 
@@ -136,7 +135,7 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the button press event
 		 * @public
 		 */
-		onOpenViewSettings : function (oEvent) {
+		onOpenViewSettings: function (oEvent) {
 			var sDialogTab = "filter";
 			if (oEvent.getSource() instanceof sap.m.Button) {
 				var sButtonId = oEvent.getSource().getId();
@@ -152,7 +151,7 @@ sap.ui.define([
 					id: this.getView().getId(),
 					name: "erp.com.ManageProductionLots.view.ViewSettingsDialog",
 					controller: this
-				}).then(function(oDialog){
+				}).then(function (oDialog) {
 					// connect dialog to the root view of this component (models, lifecycle)
 					this.getView().addDependent(oDialog);
 					oDialog.addStyleClass(this.getOwnerComponent().getContentDensityClass());
@@ -172,7 +171,7 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the confirm event
 		 * @public
 		 */
-		onConfirmViewSettingsDialog : function (oEvent) {
+		onConfirmViewSettingsDialog: function (oEvent) {
 			var aFilterItems = oEvent.getParameters().filterItems,
 				aFilters = [],
 				aCaptions = [];
@@ -181,14 +180,14 @@ sap.ui.define([
 			// combine the filter array and the filter string
 			aFilterItems.forEach(function (oItem) {
 				switch (oItem.getKey()) {
-					case "Filter1" :
-						aFilters.push(new Filter("WeightTotal", FilterOperator.LE, 100));
-						break;
-					case "Filter2" :
-						aFilters.push(new Filter("WeightTotal", FilterOperator.GT, 100));
-						break;
-					default :
-						break;
+				case "Filter1":
+					aFilters.push(new Filter("WeightTotal", FilterOperator.LE, 100));
+					break;
+				case "Filter2":
+					aFilters.push(new Filter("WeightTotal", FilterOperator.GT, 100));
+					break;
+				default:
+					break;
 				}
 				aCaptions.push(oItem.getText());
 			});
@@ -228,7 +227,7 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the list selectionChange event
 		 * @public
 		 */
-		onSelectionChange : function (oEvent) {
+		onSelectionChange: function (oEvent) {
 			var oList = oEvent.getSource(),
 				bSelected = oEvent.getParameter("selected");
 
@@ -244,7 +243,7 @@ sap.ui.define([
 		 * If there was an object selected in the master list, that selection is removed.
 		 * @public
 		 */
-		onBypassed : function () {
+		onBypassed: function () {
 			this._oList.removeSelections(true);
 		},
 
@@ -256,10 +255,10 @@ sap.ui.define([
 		 * @public
 		 * @returns {sap.m.GroupHeaderListItem} group header with non-capitalized caption.
 		 */
-		createGroupHeader : function (oGroup) {
+		createGroupHeader: function (oGroup) {
 			return new GroupHeaderListItem({
-				title : oGroup.text,
-				upperCase : false
+				title: oGroup.text,
+				upperCase: false
 			});
 		},
 
@@ -268,29 +267,28 @@ sap.ui.define([
 		 * We navigate back in the browser historz
 		 * @public
 		 */
-		onNavBack : function() {
+		onNavBack: function () {
 			// eslint-disable-next-line sap-no-history-manipulation
 			history.go(-1);
 		},
 
-		/* =========================================================== */
-		/* begin: internal methods                                     */
-		/* =========================================================== */
+		/ =========================================================== /
+		/ begin: internal methods                                     /
+		/ =========================================================== /
 
-
-		_createViewModel : function() {
+		_createViewModel: function () {
 			return new JSONModel({
 				isFilterBarVisible: false,
 				filterBarLabel: "",
 				delay: 0,
 				title: this.getResourceBundle().getText("masterTitleCount", [0]),
 				noDataText: this.getResourceBundle().getText("masterListNoDataText"),
-				sortBy: "GrossAmount",
+				sortBy: "None",
 				groupBy: "None"
 			});
 		},
 
-		_onMasterMatched :  function() {
+		_onMasterMatched: function () {
 			//Set the layout property of the FCL control to 'OneColumn'
 			this.getModel("appView").setProperty("/layout", "OneColumn");
 		},
@@ -301,12 +299,12 @@ sap.ui.define([
 		 * @param {sap.m.ObjectListItem} oItem selected Item
 		 * @private
 		 */
-		_showDetail : function (oItem) {
+		_showDetail: function (oItem) {
 			var bReplace = !Device.system.phone;
 			// set the layout property of FCL control to show two columns
 			this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
 			this.getRouter().navTo("object", {
-				objectId : oItem.getBindingContext().getProperty("POId")
+				objectId: oItem.getBindingContext().getProperty("POId")
 			}, bReplace);
 		},
 
@@ -315,7 +313,7 @@ sap.ui.define([
 		 * @param {integer} iTotalItems the total number of items in the list
 		 * @private
 		 */
-		_updateListItemCount : function (iTotalItems) {
+		_updateListItemCount: function (iTotalItems) {
 			var sTitle;
 			// only update the counter if the length is final
 			if (this._oList.getBinding("items").isLengthFinal()) {
@@ -328,8 +326,75 @@ sap.ui.define([
 		 * Internal helper method to apply both filter and search state together on the list binding
 		 * @private
 		 */
-		_applyFilterSearch : function () {
-			var aFilters = this._oListFilterState.aSearch.concat(this._oListFilterState.aFilter),
+		// _applyFilterSearch: function () {
+		// 	var aFilters = this._oListFilterState.aSearch.concat(this._oListFilterState.aFilter),
+		// 		oViewModel = this.getModel("masterView");
+		// 	this._oList.getBinding("items").filter(aFilters, "Application");
+		// 	// changes the noDataText of the list in case there are no filter results
+		// 	if (aFilters.length !== 0) {
+		// 		oViewModel.setProperty("/noDataText", this.getResourceBundle().getText("masterListNoDataWithFilterOrSearchText"));
+		// 	} else if (this._oListFilterState.aSearch.length > 0) {
+		// 		// only reset the no data text to default when no new search was triggered
+		// 		oViewModel.setProperty("/noDataText", this.getResourceBundle().getText("masterListNoDataText"));
+		// 	}
+		// },
+
+		/**
+		 * Internal helper method that sets the filter bar visibility property and the label's caption to be shown
+		 * @param {string} sFilterBarText the selected filter value
+		 * @private
+		 */
+		_updateFilterBar: function (sFilterBarText) {
+			var oViewModel = this.getModel("masterView");
+			oViewModel.setProperty("/isFilterBarVisible", (this._oListFilterState.aFilter.length > 0));
+			oViewModel.setProperty("/filterBarLabel", this.getResourceBundle().getText("masterFilterBarText", [sFilterBarText]));
+		},
+		//**
+		//**
+		//**
+		handleSearchHelpPlant: function (oEvent) {
+			var sValue = oEvent.getSource().getSelectedKey();
+			if (sValue) {
+				this._setPlantFilter(sValue);
+				this._oListFilterState.aSearch = [new Filter("Werk", FilterOperator.EQ, sValue)];
+			} else {
+				this._oListFilterState.aSearch = [];
+			}
+			this._applyFilterSearch();
+		},
+		_setPlantFilter: function (sValue) {
+			this._sPlantFilter = sValue;
+		},
+		_getPlantFilter: function () {
+			return this._sPlantFilter;
+		},
+		handleSearchHelpLotOrigin: function (oEvent) {
+			var sValue = oEvent.getSource().getSelectedKey();
+			if (sValue) {
+				this._setLotOriginFilter(sValue);
+				this._oListFilterState.aSearch = [new Filter("Herkunft", FilterOperator.EQ, sValue)];
+			} else {
+				this._oListFilterState.aSearch = [];
+			}
+			this._applyFilterSearch();
+		},
+		_setLotOriginFilter: function (sValue) {
+			this._sLotOriginFilter = sValue;
+		},
+		_getLotOriginFilter: function () {
+			return this._sLotOriginFilter;
+		},
+		_applyFilterSearch: function () {
+			// var aFilters = this._oListFilterState.aSearch.concat(this._oListFilterState.aFilter),
+			// 	oViewModel = this.getModel("masterView");
+			var aFilters = new Filter({
+					filters: [
+						new Filter("Werk", FilterOperator.EQ, this._getPlantFilter()),
+						new Filter("Herkunft", FilterOperator.EQ, this._getLotOriginFilter())
+						//this._getLotOriginFilter()
+					],
+					and: true
+				}),
 				oViewModel = this.getModel("masterView");
 			this._oList.getBinding("items").filter(aFilters, "Application");
 			// changes the noDataText of the list in case there are no filter results
@@ -339,49 +404,7 @@ sap.ui.define([
 				// only reset the no data text to default when no new search was triggered
 				oViewModel.setProperty("/noDataText", this.getResourceBundle().getText("masterListNoDataText"));
 			}
-		},
-
-		/**
-		 * Internal helper method that sets the filter bar visibility property and the label's caption to be shown
-		 * @param {string} sFilterBarText the selected filter value
-		 * @private
-		 */
-		_updateFilterBar : function (sFilterBarText) {
-			var oViewModel = this.getModel("masterView");
-			oViewModel.setProperty("/isFilterBarVisible", (this._oListFilterState.aFilter.length > 0));
-			oViewModel.setProperty("/filterBarLabel", this.getResourceBundle().getText("masterFilterBarText", [sFilterBarText]));
-		},
-		
-		handleSearchHelpPlant: function (oEvent) {
-			var sValue = oEvent.getSource().getSelectedKey();
-			if (sValue) {
-				this._oListFilterState.aSearch = [new Filter("Werk", FilterOperator.EQ, sValue)];
-			} else {
-				this._oListFilterState.aSearch = [];
-			}
-			this._applyFilterSearch();
-			// var oSelectedItem = oEvent.getParameter("selectedItem"),
-			// 	oInput = this.byId("searchPlant");
-
-			// if (oSelectedItem) {
-			// 	this.byId("searchPlant").setValue(oSelectedItem.getKey());
-			// 	var sQuery = oInput.getProperty("value");
-
-			// 	if (sQuery) {
-			// 		this._oListFilterState.aSearch = [new Filter("Werk", FilterOperator.EQ, sQuery)];
-			// 	} else {
-			// 		this._oListFilterState.aSearch = [];
-			// 	}
-			// 	this._applyFilterSearch();
-			// }
-
-			// if (!oSelectedItem) {
-			// 	oInput.resetProperty("value");
-			// }
 		}
-		
-		
-
 	});
 
 });
