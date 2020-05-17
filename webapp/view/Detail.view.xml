@@ -1,100 +1,41 @@
-<mvc:View
-	controllerName="erp.com.ManageProductionLots.controller.Detail"
-	xmlns="sap.m"
-	xmlns:semantic="sap.f.semantic"
-	xmlns:mvc="sap.ui.core.mvc">
-
-	<semantic:SemanticPage
-		id="detailPage"
-		busy="{detailView>/busy}"
-		busyIndicatorDelay="{detailView>/delay}">
-		<semantic:titleHeading>
-			<Title
-				text="{GrossAmount}"
-				level="H2"/>
-		</semantic:titleHeading>
-		<semantic:headerContent>
-			<ObjectAttribute title="{i18n>priceTitle}"/>
-			<ObjectNumber
-				id="objectHeaderNumber"
-				number="{
-					path: 'WeightTotal',
-					formatter: '.formatter.currencyValue'
-				}"
-				unit="{WeightTotal}"
-			/>
-		</semantic:headerContent>
-		<semantic:content>
-			<Table
-				id="lineItemsList"
-				width="auto"
-				items="{PurchaseOrderItems}"
-				updateFinished=".onListUpdateFinished"
-				noDataText="{i18n>detailLineItemTableNoDataText}"
-				busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+<mvc:View controllerName="erp.com.ManageProductionLots.controller.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page id="page" navButtonPress="onNavPress" showNavButton="true" title="Inspection Details">
+		<content>
+			<ObjectHeader id="objectHeader" title="{ path: 'Name', formatter: '.formatter.formatUpperCase' }" number="Inspection Lot: {Prueflos}">
+				<attributes>
+					<ObjectAttribute text="Plant: {Werk}"></ObjectAttribute>
+					<ObjectAttribute text="Lot Origin: {Herkunft}"></ObjectAttribute>
+					<ObjectAttribute text="Material Number: {Matnr}"></ObjectAttribute>
+					<ObjectAttribute text="Batch: {Charg}"/>
+				</attributes>
+			</ObjectHeader>
+			<Table id="table" width="auto" class="sapUiResponsiveMargin" items="{ToInspectionPoint}" noDataText="No Data" growing="true"
+				growingScrollToLoad="true">
 				<headerToolbar>
 					<Toolbar>
-						<Title
-							id="lineItemsTitle"
-							text="{detailView>/lineItemListTitle}"
-							titleStyle="H3"
-							level="H3"/>
+						<Title id="tableHeader" text="Inspection Lot Samples"/>
 					</Toolbar>
 				</headerToolbar>
 				<columns>
-					<Column>
-						<Text text="{i18n>detailLineItemTableIDColumn}"/>
+					<Column id="idColumn">
+						<header>
+							<Text text="Sample Number:" id="IDColumnTitle"/></header>
 					</Column>
-					<Column
-						minScreenWidth="Tablet"
-						demandPopin="true"
-						hAlign="End">
-						<Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
+					<Column id="nameColumn">
+						<header>
+							<Text text="Vbewertung:" id="nameColumnTitle"/>
+						</header>
 					</Column>
 				</columns>
 				<items>
 					<ColumnListItem>
 						<cells>
-							<ObjectIdentifier
-								title="{Product}"
-								text="{POItemPos}"/>
-							<ObjectNumber
-								number="{
-									path: 'Price',
-									formatter: '.formatter.currencyValue'
-								}"
-								unit="{QuantityUnit}"/>
+							<ObjectIdentifier text="{Phynr}"/>
+							<ObjectIdentifier text="{Vbewertung}"/>
 						</cells>
 					</ColumnListItem>
 				</items>
 			</Table>
-		</semantic:content>
-		<!--Semantic ShareMenu Buttons-->
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction
-				id="shareEmail"
-				press=".onSendEmailPress"/>
-		</semantic:sendEmailAction>
-
-		<semantic:closeAction>
-			<semantic:CloseAction
-					id="closeColumn"
-					press=".onCloseDetailPress"/>
-		</semantic:closeAction>
-
-		<semantic:fullScreenAction>
-			<semantic:FullScreenAction
-					id="enterFullScreen"
-					visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}"
-					press=".toggleFullScreen"/>
-		</semantic:fullScreenAction>
-		<semantic:exitFullScreenAction>
-			<semantic:ExitFullScreenAction
-					id="exitFullScreen"
-					visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
-					press=".toggleFullScreen"/>
-		</semantic:exitFullScreenAction>
-
-	</semantic:SemanticPage>
-
+		</content>
+	</Page>
 </mvc:View>
