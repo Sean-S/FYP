@@ -1,8 +1,41 @@
-<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
-	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
 	<edmx:DataServices m:DataServiceVersion="2.0">
-		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV" xml:lang="en"
-			sap:schema-version="0000">
+		<Schema Namespace="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV" xml:lang="en" sap:schema-version="0000"
+			xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="searchHelpPlant" sap:content-version="1">
+				<Key><PropertyRef Name="Werks"/></Key><Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Name 1" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="searchHelpLotOrigin" sap:content-version="1">
+				<Key><PropertyRef Name="Herkunft"/><PropertyRef Name="Sprache"/></Key><Property Name="Herkunft" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Insp.lot origin" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Sprache" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Language" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Herktxt" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Text: Origin" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="PhysicalSample" sap:content-version="1">
+				<Key><PropertyRef Name="Phynr"/></Key><Property Name="Phynr" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Physical Sample" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Prueflos" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Inspection Lot" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Prart" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Type" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Prtyp" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Sample Category" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Menge" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unit="Meinh" sap:label="Sample Quantity"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Meinh" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="PhysSampUnitOfM" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/><Property Name="Matnr" Type="Edm.String" Nullable="false" MaxLength="18" sap:label="Material" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Charg" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Batch" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Ktext" Type="Edm.String" Nullable="false" MaxLength="80" sap:label="Short text" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Gebeh" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Lot container" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/></EntityType>
+			<EntityType Name="InspectionPoint" sap:content-version="1">
+				<Key><PropertyRef Name="Prueflos"/><PropertyRef Name="Vorglfnr"/><PropertyRef Name="Probenr"/></Key><Property Name="Prueflos" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Inspection Lot" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Vorglfnr" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Node number" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Probenr" Type="Edm.String" Nullable="false" MaxLength="6" sap:label="Sample" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Phynr" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Physical sample" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Vwerks" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Vcode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="UD code" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Vbewertung" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Valuation Code" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Kzbewert" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Valuation stat." sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
 			<EntityType Name="InspectionLot" sap:content-version="1">
 				<Key><PropertyRef Name="Prueflos"/></Key><Property Name="Prueflos" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Inspection Lot" sap:creatable="false"
 					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Werk" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false"
@@ -12,12 +45,13 @@
 					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Pastrterm" Type="Edm.DateTime" Nullable="false" Precision="0" sap:label="Start Date" sap:creatable="false"
 					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Paendterm" Type="Edm.DateTime" Nullable="false" Precision="0" sap:label="End Date" sap:creatable="false"
 					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Aufnr" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Order" sap:creatable="false" sap:updatable="false"
-					sap:sortable="false" sap:filterable="false"/><Property Name="Aufpl" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Plan no.f.oper." sap:creatable="false"
-					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Lifnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Vendor" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Aufpl" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Routing number of operations in the order"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Lifnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Vendor" sap:creatable="false" sap:updatable="false"
 					sap:sortable="false" sap:filterable="false"/><Property Name="Matnr" Type="Edm.String" Nullable="false" MaxLength="18" sap:label="Material" sap:creatable="false" sap:updatable="false"
 					sap:sortable="false" sap:filterable="false"/><Property Name="Charg" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Batch" sap:creatable="false" sap:updatable="false"
 					sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="InspectionLotToUsageDecisionNav" Relationship="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLotToUsageDecisionAss"
-					FromRole="FromRole_InspectionLotToUsageDecisionAss" ToRole="ToRole_InspectionLotToUsageDecisionAss"/></EntityType>
+					FromRole="FromRole_InspectionLotToUsageDecisionAss" ToRole="ToRole_InspectionLotToUsageDecisionAss"/><NavigationProperty Name="ToInspectionPoint" Relationship="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLotInspectionPointAss"
+					FromRole="FromRole_InspectionLotInspectionPointAss" ToRole="ToRole_InspectionLotInspectionPointAss"/></EntityType>
 			<EntityType Name="UsageDecision" sap:content-version="1">
 				<Key><PropertyRef Name="Pruflos"/><PropertyRef Name="Kzart"/><PropertyRef Name="Zaehler"/></Key><Property Name="Pruflos" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Inspection Lot" sap:creatable="false"
 					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Kzart" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="UD type" sap:creatable="false" sap:updatable="false"
@@ -25,17 +59,44 @@
 					sap:sortable="false" sap:filterable="false"/><Property Name="Vbewertung" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Valuation Code" sap:creatable="false"
 					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Vcode" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="UD code" sap:creatable="false" sap:updatable="false"
 					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<ComplexType Name="Return"><Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Message type" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="Id" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Message Class" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="Number" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Message number" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="220" sap:label="Message text" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="LogNo" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Log number" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="LogMsgNo" Type="Edm.String" Nullable="false" MaxLength="6" sap:label="Message no." sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="MessageV1" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Message Variable" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="MessageV2" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Message Variable" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="MessageV3" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Message Variable" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="MessageV4" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Message Variable" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/></ComplexType>
+			<Association Name="InspectionLotInspectionPointAss" sap:content-version="1"><End Type="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLot" Multiplicity="1" Role="FromRole_InspectionLotInspectionPointAss"/><End Type="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionPoint" Multiplicity="*" Role="ToRole_InspectionLotInspectionPointAss"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_InspectionLotInspectionPointAss"><PropertyRef Name="Prueflos"/></Principal>
+					<Dependent Role="ToRole_InspectionLotInspectionPointAss"><PropertyRef Name="Prueflos"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
 			<Association Name="InspectionLotToUsageDecisionAss" sap:content-version="1"><End Type="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLot" Multiplicity="1" Role="FromRole_InspectionLotToUsageDecisionAss"/><End Type="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.UsageDecision" Multiplicity="*" Role="ToRole_InspectionLotToUsageDecisionAss"/>
 				<ReferentialConstraint>
 					<Principal Role="FromRole_InspectionLotToUsageDecisionAss"><PropertyRef Name="Prueflos"/></Principal>
 					<Dependent Role="ToRole_InspectionLotToUsageDecisionAss"><PropertyRef Name="Pruflos"/></Dependent>
 				</ReferentialConstraint>
 			</Association>
-			<EntityContainer Name="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV_Entities" m:IsDefaultEntityContainer="true"><EntitySet Name="UsageDecisionSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.UsageDecision" sap:creatable="false" sap:updatable="false"
-				sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="InspectionLotSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLot" sap:creatable="false" sap:updatable="false"
-				sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+			<EntityContainer Name="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV_Entities" m:IsDefaultEntityContainer="true"><EntitySet Name="searchHelpLotOriginSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.searchHelpLotOrigin" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="PhysicalSampleSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.PhysicalSample" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="InspectionPointSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionPoint" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="InspectionLotSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLot" sap:label="Inspection Lot"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="UsageDecisionSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.UsageDecision" sap:label="Usage Decision"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="searchHelpPlantSet" EntityType="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.searchHelpPlant" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
 				<AssociationSet Name="InspectionLotToUsageDecisionAssSet" Association="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLotToUsageDecisionAss"
 					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="InspectionLotSet" Role="FromRole_InspectionLotToUsageDecisionAss"/><End EntitySet="UsageDecisionSet" Role="ToRole_InspectionLotToUsageDecisionAss"/></AssociationSet>
-			</EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZIEQ_MANAGE_PROD_INSPECTIONS_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZIEQ_MANAGE_PROD_INSPECTIONS_SRV/$metadata"/></Schema>
+				<AssociationSet Name="InspectionLotInspectionPointAssSet" Association="ZIEQ_MANAGE_PROD_INSPECTIONS_SRV.InspectionLotInspectionPointAss"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="InspectionLotSet" Role="FromRole_InspectionLotInspectionPointAss"/><End EntitySet="InspectionPointSet" Role="ToRole_InspectionLotInspectionPointAss"/></AssociationSet>
+			</EntityContainer><atom:link rel="self"
+				href="https://webidecp-p2001776926trial.dispatcher.hanatrial.ondemand.com/destinations/SAPOData/sap/opu/odata/sap/ZIEQ_MANAGE_PROD_INSPECTIONS_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/><atom:link rel="latest-version"
+				href="https://webidecp-p2001776926trial.dispatcher.hanatrial.ondemand.com/destinations/SAPOData/sap/opu/odata/sap/ZIEQ_MANAGE_PROD_INSPECTIONS_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/></Schema>
 	</edmx:DataServices>
 </edmx:Edmx>
