@@ -15,9 +15,9 @@ sap.ui.define([
 
 		formatter: formatter,
 
-		/ =========================================================== /
-		/ lifecycle methods                                           /
-		/ =========================================================== /
+		// =========================================================== /
+		// lifecycle methods                                           /
+		// =========================================================== /
 
 		/**
 		 * Called when the master list controller is instantiated. It sets up the event handling for the master/detail communication and other lifecycle tasks.
@@ -80,9 +80,9 @@ sap.ui.define([
 			//this._applyFilterSearch();
 		},
 
-		/ =========================================================== /
-		/ event handlers                                              /
-		/ =========================================================== /
+		// =========================================================== /
+		// event handlers                                              /
+		// =========================================================== /
 
 		/**
 		 * After list data is available, this handler method updates the
@@ -272,9 +272,9 @@ sap.ui.define([
 			history.go(-1);
 		},
 
-		/ =========================================================== /
-		/ begin: internal methods                                     /
-		/ =========================================================== /
+		// =========================================================== /
+		// begin: internal methods                                     /
+		//=========================================================== /
 
 		_createViewModel: function () {
 			return new JSONModel({
@@ -304,7 +304,7 @@ sap.ui.define([
 			// set the layout property of FCL control to show two columns
 			this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
 			this.getRouter().navTo("object", {
-				objectId: oItem.getBindingContext().getProperty("POId")
+				Prueflos: oItem.getBindingContext().getProperty("Prueflos")
 			}, bReplace);
 		},
 
