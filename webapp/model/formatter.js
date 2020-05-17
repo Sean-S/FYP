@@ -1,20 +1,18 @@
+
 sap.ui.define([], function () {
 	"use strict";
+  return {
 
-	return {
-		/**
-		 * Rounds the currency value to 2 digits
-		 *
-		 * @public
-		 * @param {string} sValue value to be formatted
-		 * @returns {string} formatted currency value with 2 digits
-		 */
-		currencyValue : function (sValue) {
-			if (!sValue) {
-				return "";
-			}
+    /**
+     * Formats a given string to uppercase.
+     *
+     * @function
+     * @param {string} sName string to be formatted
+     * @public
+     */
+    formatUpperCase: function(sName) {
+      return sName && sName.toUpperCase();
+    }
+  };
 
-			return parseFloat(sValue).toFixed(2);
-		}
-	};
 });
